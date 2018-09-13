@@ -7,26 +7,27 @@ import matplotlib.pyplot as plt
 
 
 # This API key is provided by google as described in the tutorial
-API_KEY = '... add your own ...'
+API_KEY = 'AIzaSyB0PtQpyIHzdKigrQtgae3KYVLg_lyQ5IA'
 
 # This is the table id for the fusion table
-TABLE_ID = '... add your own ...'
+TABLE_ID = '1RZHhtESMRSg6ZBQkk6HFyVIASf1KIGXaLaPiU0YA'
 
 # This API key is provided by google as described in the tutorial
-API_KEY = 'AIzaSyCpZ1iLD_Id7epHtnkEgAYTXsk2uBUtGkk'
+#  API_KEY = 'AIzaSyCpZ1iLD_Id7epHtnkEgAYTXsk2uBUtGkk'
 
 # This is the table id for the fusion table
-TABLE_ID = '1ymz3EtGdi4qKGMl5AxEFXtTlgk3tKi8iCpjTzvM'
+#  TABLE_ID = '1ymz3EtGdi4qKGMl5AxEFXtTlgk3tKi8iCpjTzvM'
 
 # open the data stored in a file called "data.json"
 try:
+    raise IOError
     fp = open("data.json")
     response = json.load(fp)
 
 # but if that file does not exist, download the data from fusiontables
 except IOError:
     service = build('fusiontables', 'v1', developerKey=API_KEY)
-    query = "SELECT * FROM " + TABLE_ID + " WHERE  AnimalType = 'DOG'"
+    query = "SELECT * FROM " + TABLE_ID #+ " WHERE  AnimalType = 'DOG'"
     response = service.query().sql(sql=query).execute()
     fp = open("data.json", "w+")
     json.dump(response, fp)

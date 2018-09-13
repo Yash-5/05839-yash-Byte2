@@ -1,192 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
-    <title>Explore Byte Tutorial</title>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap theme -->
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <!-- Custom styles for this project -->
-    <link href="css/explore.css" rel="stylesheet">
-  </head>
-  
-  <body role="document">
-    
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container" >
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="favicon.ico">
+        <title>Yash Byte-2</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+        <!-- Custom styles for this project -->
+        <link href="css/explore.css" rel="stylesheet">
+    </head>
+
+    <body role="document">
+
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container" >
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="about">About This Data Set</a></li>
+                        <li><a href="quality">Data Quality</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div class="container theme-showcase" role="main">
+
+            <!-- Main jumbotron for a primary marketing message or call to action -->
+            <div class="jumbotron">
+                <h1>Interactive Data Science Project Exploratory Analysis Byte</h1>
+				<p>I take a look at Australian Open 2018 data.</p>
+            </div>
+
+            <div class="page-header">
+
+            </div> <!-- /page-header -->
+        </div> <!-- /container -->
+
+        <div class="button-toolbar" role="toolbar" id="headers" name="headers">
+            {% for column in columns %}
+            <button type="button" class = "btn-space btn btn-info" id="{{column}}" onclick="updateTable('{{column}}')">{{column}}</button>
+            {% endfor %}
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="about">About This Data Set</a></li>
-	    <li><a href="quality">Data Quality</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-    
-    <div class="container theme-showcase" role="main">
-      
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-	<h1>Interactive Data Science Project Exploratory Analysis Byte Example</h1>
-        <p>This is the Exploratory Analysis Byte of the Interactive Data Science class.</p>
-      </div>
-      
-      <div class="page-header">
-	
-      </div> <!-- /page-header -->
-    </div> <!-- /container -->
-    
-    <div class="button-toolbar" role="toolbar" id="headers" name="headers">
-      {% for column in columns %}
-      <button type="button" class = "btn-space btn btn-info" id="{{column}}" onclick="updateTable('{{column}}')">{{column}}</button>
-      {% endfor %}
-    </div>
-    
-    <!--
-    <div id="animals"><table id="data" class="table table-striped table-hover">
-	<thead class ="thead-inverse">
-	  <tr id="cols">
-	  </tr>
-	</thead>
-	<tbody id="rows"> 
-	</tbody>
-    </table></div>
-  -->
-  
-  <div class="table-responsive">
-    <table class="table table-striped table-hover">
-      <thead class="thead-inverse">
-       <tr id="cols">
-    {% for item in columns %}
-             <th>{{ item }}</th>
-    {% endfor %}
-         </tr>
-        </thead>
-        <tbody id="rows">
-    {% for row in rows %}
-         <tr>
-      {% for datum in row %}
-                <td>{{ datum }} </td>
-      {% endfor %}
-         </tr>
-    {% endfor %}
-        </tbody>
-     </table>
-  </div>
-  
-  
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script>
-	function updateTable(str) {
-		console.log("in updateTable");
-		console.log(str);
 
-	    // error checking: ignore buttons that don't have a title!
-		if (str == "") {
-			return;
-		}
+        <!--
+            <div id="animals"><table id="data" class="table table-striped table-hover">
+            <thead class ="thead-inverse">
+            <tr id="cols">
+            </tr>
+            </thead>
+            <tbody id="rows"> 
+            </tbody>
+            </table></div>
+        -->
 
-	    // find the actual button in this document's HTML
-		button = document.getElementById(str);
-		// for debugging, write its name to the console
-		console.log(button.className);
-		// check if it is disabled (btn-info)
-		if (button.className.includes("btn-info")) {
-			// and enable it (btn-primary)
-			button.className = "btn btn-space btn-primary";
-		} else {
-			// otherwise disable it (btn-info)
-			button.className = "btn btn-space btn-info";
-		}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="thead-inverse">
+                    <tr id="cols">
+                        {% for item in columns %}
+                        <th>{{ item }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody id="rows">
+                    {% for row in rows %}
+                    <tr>
+                        {% for datum in row %}
+                        <td>{{ datum }} </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-		// now get all the buttons
-		buttons = document.getElementById("headers").children;
-		// and collect their names in cols
-		cols = [];
-		// loop through them
-		for (button in buttons) {
-			// grab the id (the name we need is there)
-			id = buttons[button].id;
-			// make sure it isn't null
-			if (buttons[button].id != null) {
-				// and that the button is selected 
-				var isPrimary = buttons[button].className.includes("btn-primary");
-				if (isPrimary && (cols.indexOf(id) == -1)) {
-					// if so, add it to our array
-					cols.push(id);
-				}
-			}
-		}
-					
-		$.ajax({
-			url: '/_update_table',
-			dataType: 'json',
-			contentType: 'application/json',
-			data: JSON.stringify({'cols' : cols}),
-			type: 'POST',
-			success: function (res, status) {
-				console.log("successrunning");
-				console.log(res["content"]);
-				console.log(res["headers"]);
-				var cols = res["headers"];
-				var rows = res["content"];
+        <h3>Is the data complete?</h3>
+        The data is obtained from <a href="https://github.com/JeffSackmann/tennis_atp/blob/master/atp_matches_2018.csv">here</a>.
+		(I only collected Australian open 2018 data) and only misses entries in the following fields at certain places:
 
-				// get the table, columns and rows
-				table = document.getElementById("data");
-				headers = document.getElementById("cols");
-				body = document.getElementById("rows");
+		<ul>
 
-				// delete current contents
-				headers.innerHTML='';
-				body.innerHTML = '';
+			<li> winner_seed/loser_seed for unseeded players </li>
+			<ul><li>Since the players are unseeded, this makes no difference</li></ul>
 
-				// and put the new information in the table
-				for (col in cols) {
-					cell = document.createElement("th");
-					cell.innerHTML = cols[col];
-					headers.appendChild(cell);
-				}
-				for (row in rows) {
-					tr = document.createElement("tr");
-					for (item in rows[row]) {
-						td = document.createElement("td");
-						td.innerHTML = rows[row][item];
-						tr.appendChild(td);
-					}
-					body.appendChild(tr);
-				}
-			},
-			error: function(res, status) {
-				// On Error
-				alert('error');
-			}
-		});
+			<li> winner_entry/loser_entry for players that did not enter through special means</li>
+			<ul><li>In tennis, some players enter tournaments through qualifiers, some are given
+					a wildcard and some can be a lucky loser. However, majority of the 
+					players enter through their ranking and this field is empty for them</li>
+				<li>This again makes no difference as it is clear what value should be here</li></ul>
+
+			<li>winner_ht and loser_ht for some players</li>
+			<ul><li>Some players' heights are missing. This only matters if we need accurate height data for some analysis</li></ul>
+
+		</ul>
+
+        <h3>Is the data coherent?</h3>
+
+		<iframe width="500" height="300" scrolling="no" frameborder="no" src="https://fusiontables.google.com/embedviz?containerId=googft-gviz-canvas&amp;q=select+col31%2C+count()+from+1RZHhtESMRSg6ZBQkk6HFyVIASf1KIGXaLaPiU0YA+group+by+col31+order+by+count()+asc+limit+100&amp;viz=GVIZ&amp;t=COLUMN&amp;uiversion=2&amp;gco_forceIFrame=true&amp;gco_hasLabelsColumn=true&amp;width=500&amp;height=300"></iframe>
+
+		<h6>Histogram of aces by match winners should be a normal distribution and is so. The extreme value of 53 is correct(That's just Ivo Karlovic serving his way to record books).</h6>
+
+	<iframe width="500" height="300" scrolling="no" frameborder="no" src="https://fusiontables.google.com/embedviz?containerId=googft-gviz-canvas&amp;q=select+col6%2C+col39%2C+col48+from+1RZHhtESMRSg6ZBQkk6HFyVIASf1KIGXaLaPiU0YA+order+by+col6+asc&amp;viz=GVIZ&amp;t=SCATTER&amp;rmax=250&amp;uiversion=2&amp;gco_forceIFrame=true&amp;gco_hasLabelsColumn=true&amp;width=500&amp;height=300"></iframe>
+
+		<h6>As you can see, the loser has faced more break points than the winner</h6>
+
+	<iframe width="500" height="300" scrolling="no" frameborder="no" src="https://fusiontables.google.com/embedviz?containerId=googft-gviz-canvas&amp;viz=GVIZ&amp;t=LINE_AGGREGATE&amp;isXyPlot=true&amp;bsize=0.0&amp;q=select+col6%2C+col28+from+1RZHhtESMRSg6ZBQkk6HFyVIASf1KIGXaLaPiU0YA&amp;qrs=+where+col6+%3E%3D+&amp;qre=+and+col6+%3C%3D+&amp;qe=+order+by+col6+asc&amp;uiversion=2&amp;gco_forceIFrame=true&amp;gco_hasLabelsColumn=true&amp;width=500&amp;height=300"></iframe>
+
+		<h6>All matches should be best of 5 in the dataset, and they are so. At this point, I am just having fun using fusion tables</h6>
+
+		<h3>Is the data correct?</h3>
+		
+		<p>Yes.</p>
+
+		<p>I randomly took 10% of the matches and verifies the data and it was
+        all correct. Alongwith the coherency checks, it seems the data is indeed correct</p>
+
+		<h3>Is the data accountable?</h3>
+
+		<p> The data is available to general public on <a
+        href="https://github.com/JeffSackmann/tennis_atp">Github</a> but it is not official or data verified by a Tennis association.
+		However, it is a widely used dataset and seems reputable(279 stars and
+		mentioned in <a
+        href="https://github.com/awesomedata/awesome-public-datasets">awesome public datasets</a>) enough to be accountable
+
+		<!-- Bootstrap core JavaScript
+	  ================================================== -->
+	  <!-- Placed at the end of the document so the pages load faster -->
+	  <script src="js/jquery-1.11.3.min.js"></script>
+	  <script src="js/bootstrap.min.js"></script>
+	  <script>
+function updateTable(str) {
+	console.log("in updateTable");
+	console.log(str);
+
+	// error checking: ignore buttons that don't have a title!
+	if (str == "") {
+		return;
 	}
-				
-				   
-				   
-</script>
-</body>
+
+	// find the actual button in this document's HTML
+	button = document.getElementById(str);
+	// for debugging, write its name to the console
+	console.log(button.className);
+	// check if it is disabled (btn-info)
+	if (button.className.includes("btn-info")) {
+		// and enable it (btn-primary)
+		button.className = "btn btn-space btn-primary";
+	} else {
+		// otherwise disable it (btn-info)
+		button.className = "btn btn-space btn-info";
+	}
+
+	// now get all the buttons
+	buttons = document.getElementById("headers").children;
+	// and collect their names in cols
+	cols = [];
+	// loop through them
+	for (button in buttons) {
+		// grab the id (the name we need is there)
+		id = buttons[button].id;
+		// make sure it isn't null
+		if (buttons[button].id != null) {
+			// and that the button is selected 
+			var isPrimary = buttons[button].className.includes("btn-primary");
+			if (isPrimary && (cols.indexOf(id) == -1)) {
+				// if so, add it to our array
+				cols.push(id);
+			}
+		}
+	}
+
+	$.ajax({
+		url: '/_update_table',
+		dataType: 'json',
+		contentType: 'application/json',
+		data: JSON.stringify({'cols' : cols}),
+		type: 'POST',
+		success: function (res, status) {
+			console.log("successrunning");
+			console.log(res["content"]);
+			console.log(res["headers"]);
+			var cols = res["headers"];
+			var rows = res["content"];
+
+			// get the table, columns and rows
+			table = document.getElementById("data");
+			headers = document.getElementById("cols");
+			body = document.getElementById("rows");
+
+			// delete current contents
+			headers.innerHTML='';
+			body.innerHTML = '';
+
+			// and put the new information in the table
+			for (col in cols) {
+				cell = document.createElement("th");
+				cell.innerHTML = cols[col];
+				headers.appendChild(cell);
+			}
+			for (row in rows) {
+				tr = document.createElement("tr");
+				for (item in rows[row]) {
+					td = document.createElement("td");
+					td.innerHTML = rows[row][item];
+					tr.appendChild(td);
+				}
+				body.appendChild(tr);
+			}
+		},
+		error: function(res, status) {
+			// On Error
+			alert('error');
+		}
+	});
+}
+
+
+
+	  </script>
+	</body>
 </html>
